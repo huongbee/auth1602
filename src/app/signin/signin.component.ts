@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { UserService } from '../service/user.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-signin',
@@ -8,7 +10,13 @@ import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 })
 export class SigninComponent implements OnInit {
   signInForm: FormGroup;
-  constructor(private fb: FormBuilder) {
+  errorMessage: string;
+
+  constructor(
+    private fb: FormBuilder,
+    private userService: UserService,
+    private router: Router
+  ) {
     this.signInForm = this.fb.group({
       email: ['',
         [Validators.required, Validators.email]
@@ -21,7 +29,17 @@ export class SigninComponent implements OnInit {
   }
   signIn() {
     const { email, password } = this.signInForm.value;
-    
+    this.userService.login(email, password)
+    .then(res => {
+        if (res.code === 1) {
+            // store
+            // save token
+            this.router.navigateByUrl('/profile');
+        } else {
+          return this.errorMessage = res.message;
+        }
+    })
+    .catch(err => this.errorMessage = err.message);
   }
 
 }

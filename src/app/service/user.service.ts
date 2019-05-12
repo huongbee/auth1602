@@ -9,10 +9,16 @@ export class UserService {
 
     constructor(private http: HttpClient) { }
 
-    signUp(email: string, name: string, password: string): Promise<any> {
+    async signUp(email: string, name: string, password: string): Promise<any> {
         return this.http.post(`${this.URL}user/signup`, {email, password, name})
         .toPromise()
         .then(res => res)
         .catch(err => err);
+    }
+    async login(email: string, password: string) {
+      return this.http.post(`${this.URL}user/signin`, {email, password})
+      .toPromise()
+      .then(res => res)
+      .catch(err => err);
     }
 }
