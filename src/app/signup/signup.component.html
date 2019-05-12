@@ -1,7 +1,9 @@
 <div class="row justify-content-center">
   <div class="col-6">
     <h2 class="text-center">Sign up</h2>
-      <form [formGroup]="signUpForm" (ngSubmit)="signUp">
+      <form 
+        [formGroup]="signUpForm" 
+        (ngSubmit)="signUp()">
         <div class="form-group">
           <label for="email">Email address</label>
           <input type="email" class="form-control" id="email" formControlName="email" placeholder="Enter email">
