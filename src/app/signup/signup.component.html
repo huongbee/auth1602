@@ -1,6 +1,9 @@
 <div class="row justify-content-center">
   <div class="col-6">
-    <h2 class="text-center">Sign up</h2>
+    <h2 class="text-center">Sign Up</h2>
+      <div class="alert alert-danger" *ngIf="errorMessage">
+        {{errorMessage}}
+      </div>
       <form 
         [formGroup]="signUpForm" 
         (ngSubmit)="signUp()">
