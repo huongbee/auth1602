@@ -11,6 +11,8 @@ import { HttpClientModule } from '@angular/common/http';
 import { UserService } from './service/user.service';
 import { RouterModule, Route } from '@angular/router';
 import { NotFoundComponent } from './not-found/not-found.component';
+import { userReducer } from './ngrx/reducers';
+import { StoreModule } from '@ngrx/store';
 
 const routes: Route[] = [
     { path: '', component: ProfileComponent },
@@ -33,7 +35,10 @@ const routes: Route[] = [
     FormsModule,
     ReactiveFormsModule,
     HttpClientModule,
-    RouterModule.forRoot(routes)
+    RouterModule.forRoot(routes),
+    StoreModule.forRoot({
+      user: userReducer
+    })
   ],
   providers: [UserService],
   bootstrap: [AppComponent]

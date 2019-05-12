@@ -31,13 +31,14 @@ export class SigninComponent implements OnInit {
     const { email, password } = this.signInForm.value;
     this.userService.login(email, password)
     .then(res => {
-        if (res.code === 1) {
-            // store
-            // save token
-            this.router.navigateByUrl('/profile');
-        } else {
-          return this.errorMessage = res.message;
-        }
+      console.log(res);
+      if (res.code === 1) {
+          // store
+          // save token
+          this.router.navigateByUrl('/');
+      } else {
+        return this.errorMessage = res.message;
+      }
     })
     .catch(err => this.errorMessage = err.message);
   }
