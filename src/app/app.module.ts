@@ -37,7 +37,7 @@ const routes: Route[] = [
     HttpClientModule,
     RouterModule.forRoot(routes),
     StoreModule.forRoot({
-      user: userReducer
+      userInfo: userReducer
     })
   ],
   providers: [UserService],

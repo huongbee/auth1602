@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { UserService } from '../service/user.service';
 import { Router } from '@angular/router';
+import { Store } from '@ngrx/store';
+import { User } from '../type';
 
 @Component({
   selector: 'app-signin',
@@ -15,7 +17,8 @@ export class SigninComponent implements OnInit {
   constructor(
     private fb: FormBuilder,
     private userService: UserService,
-    private router: Router
+    private router: Router,
+    private store: Store<User>
   ) {
     this.signInForm = this.fb.group({
       email: ['',
@@ -33,7 +36,10 @@ export class SigninComponent implements OnInit {
     .then(res => {
       console.log(res);
       if (res.code === 1) {
-          // store
+          this.store.dispatch({
+            type: 'USER_LOGIN',
+            user: res.data
+          });
           // save token
           this.router.navigateByUrl('/');
       } else {
