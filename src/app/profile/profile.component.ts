@@ -17,9 +17,9 @@ export class ProfileComponent implements OnInit {
   ngOnInit() {
     this.userService.check()
     .then(res => {
-      console.log(res.body);
-      console.log(res.headers.get('Content-Type'));
-      console.log(res.headers.get('token'));
+      if (res.code === 1) {
+        this.store.dispatch({type: 'USER_LOGIN', user: res.data.user});
+      }
     })
     .catch(err => {
       console.log(err);

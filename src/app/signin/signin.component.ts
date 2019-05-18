@@ -34,14 +34,12 @@ export class SigninComponent implements OnInit {
     const { email, password } = this.signInForm.value;
     this.userService.login(email, password)
     .then(res => {
-      console.log(res);
       if (res.code === 1) {
           this.store.dispatch({
             type: 'USER_LOGIN',
             user: res.data
           });
           // save token
-          localStorage.setItem('token', res.data.token);
           this.router.navigateByUrl('/');
       } else {
         return this.errorMessage = res.message;

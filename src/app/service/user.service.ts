@@ -19,11 +19,15 @@ export class UserService {
     async login(email: string, password: string) {
       return this.http.post(`${this.URL}user/signin`, {email, password})
       .toPromise()
-      .then(res => res)
+      .then(res => {
+        localStorage.setItem('token', res.data.token);
+        return res;
+      })
       .catch(err => err);
     }
     async check() {
       const token = localStorage.getItem('token');
+      console.log(token);
       if (!token) {
         return this.router.navigateByUrl('/signin');
       }
@@ -34,7 +38,13 @@ export class UserService {
         { headers, observe: 'response' } // headers
       )
       .toPromise()
-      .then(res => res)
+      .then((res: any) => {
+        if (res.body.code === 1) {
+          return res.body;
+        } else {
+          return this.router.navigateByUrl('/signin');
+        }
+      })
       .catch(err => err);
     }
 }
