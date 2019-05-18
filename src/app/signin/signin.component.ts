@@ -41,6 +41,7 @@ export class SigninComponent implements OnInit {
             user: res.data
           });
           // save token
+          localStorage.setItem('token', res.data.token);
           this.router.navigateByUrl('/');
       } else {
         return this.errorMessage = res.message;
