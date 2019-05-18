@@ -37,7 +37,11 @@ export class SigninComponent implements OnInit {
       if (res.code === 1) {
           this.store.dispatch({
             type: 'USER_LOGIN',
-            user: res.data
+            user: {
+              _id: res.data._id,
+              name: res.data.name,
+              email: res.data.email
+            }
           });
           // save token
           this.router.navigateByUrl('/');

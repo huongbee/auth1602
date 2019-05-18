@@ -18,7 +18,10 @@ export class ProfileComponent implements OnInit {
     this.userService.check()
     .then(res => {
       if (res.code === 1) {
-        this.store.dispatch({type: 'USER_LOGIN', user: res.data.user});
+        this.store.dispatch({
+          type: 'USER_LOGIN',
+          user: res.data.user
+        });
       }
     })
     .catch(err => {

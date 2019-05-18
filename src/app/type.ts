@@ -7,3 +7,6 @@ export interface User {
     receiveRequests?: string[];
     sendRequests?: string[];
 }
+export interface Loading {
+    loading: boolean;
+}
