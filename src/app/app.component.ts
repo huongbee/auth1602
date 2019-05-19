@@ -1,5 +1,7 @@
 import { Component } from '@angular/core';
 import { UserService } from './service/user.service';
+import { Store } from '@ngrx/store';
+import { Loading } from './type';
 
 @Component({
   selector: 'app-root',
@@ -8,7 +10,9 @@ import { UserService } from './service/user.service';
 })
 export class AppComponent {
   title = 'auth1802';
-  constructor(private userService: UserService) {
+  loading: boolean;
+  constructor(private userService: UserService, private store: Store<Loading>) {
+    this.store.select('loading').subscribe(l => this.loading = l;);
   }
 
 }

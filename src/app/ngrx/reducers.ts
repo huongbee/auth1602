@@ -11,7 +11,7 @@ export function userReducer(state: Store<User> = null, action: any) {
     return state;
 }
 
-export function loading(state: Store<Loading> = null , action: Action) {
-    if ( action.type === 'LOADING' ) { return true; }
-    return false;
+export function loading(state = true , action: Action) {
+    if ( action.type === 'LOADED' ) { return false; }
+    return state;
 }

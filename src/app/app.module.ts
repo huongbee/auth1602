@@ -11,7 +11,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { UserService } from './service/user.service';
 import { RouterModule, Route } from '@angular/router';
 import { NotFoundComponent } from './not-found/not-found.component';
-import { userReducer } from './ngrx/reducers';
+import { userReducer, loading } from './ngrx/reducers';
 import { StoreModule } from '@ngrx/store';
 
 const routes: Route[] = [
@@ -37,7 +37,8 @@ const routes: Route[] = [
     HttpClientModule,
     RouterModule.forRoot(routes),
     StoreModule.forRoot({
-      userInfo: userReducer
+      userInfo: userReducer,
+      loading
     })
   ],
   providers: [UserService],
