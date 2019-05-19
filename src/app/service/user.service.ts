@@ -30,6 +30,7 @@ export class UserService {
     async check() {
       const token = localStorage.getItem('token');
       if (!token) {
+        this.store.dispatch({type: 'LOADED'});
         return this.router.navigateByUrl('/signin');
       }
       const headers = new HttpHeaders({ token });

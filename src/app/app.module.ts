@@ -14,10 +14,11 @@ import { NotFoundComponent } from './not-found/not-found.component';
 import { userReducer, loading } from './ngrx/reducers';
 import { StoreModule } from '@ngrx/store';
 import { PostComponent } from './post/post.component';
+import { MustBeGuestGuard } from './guard/must-be-guest.guard';
 
 const routes: Route[] = [
     { path: '', component: ProfileComponent },
-    { path: 'signin', component: SigninComponent},
+    { path: 'signin', component: SigninComponent, canActivate: [MustBeGuestGuard]},
     { path: 'signup', component: SignupComponent},
     { path: 'post', component: PostComponent},
     { path: '**', component: NotFoundComponent}
@@ -44,7 +45,7 @@ const routes: Route[] = [
       loading
     })
   ],
-  providers: [UserService],
+  providers: [UserService, MustBeGuestGuard],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
