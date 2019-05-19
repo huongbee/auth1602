@@ -13,11 +13,13 @@ import { RouterModule, Route } from '@angular/router';
 import { NotFoundComponent } from './not-found/not-found.component';
 import { userReducer, loading } from './ngrx/reducers';
 import { StoreModule } from '@ngrx/store';
+import { PostComponent } from './post/post.component';
 
 const routes: Route[] = [
     { path: '', component: ProfileComponent },
     { path: 'signin', component: SigninComponent},
     { path: 'signup', component: SignupComponent},
+    { path: 'post', component: PostComponent},
     { path: '**', component: NotFoundComponent}
 ];
 
@@ -27,7 +29,8 @@ const routes: Route[] = [
     SignupComponent,
     SigninComponent,
     ProfileComponent,
-    NotFoundComponent
+    NotFoundComponent,
+    PostComponent
   ],
   imports: [
     BrowserModule,

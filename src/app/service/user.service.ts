@@ -1,6 +1,8 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Router } from '@angular/router';
+import { Store } from '@ngrx/store';
+import { Loading } from '../type';
 
 @Injectable({
   providedIn: 'root'
@@ -8,7 +10,7 @@ import { Router } from '@angular/router';
 export class UserService {
     URL = 'http://localhost:3000/';
 
-    constructor(private http: HttpClient, private router: Router) { }
+    constructor(private http: HttpClient, private router: Router, private store: Store<Loading>) { }
 
     async signUp(email: string, name: string, password: string): Promise<any> {
         return this.http.post(`${this.URL}user/signup`, {email, password, name})
@@ -39,6 +41,7 @@ export class UserService {
       .toPromise()
       .then((res: any) => {
         if (res.body.code === 1) {
+          this.store.dispatch({type: 'LOADED'});
           return res.body;
         } else {
           return this.router.navigateByUrl('/signin');

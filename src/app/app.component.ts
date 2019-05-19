@@ -23,7 +23,6 @@ export class AppComponent {
           type: 'USER_LOGIN',
           user: res.data.user
         });
-        this.store.dispatch({type: 'LOADED'});
       }
     })
     .catch(err => {
