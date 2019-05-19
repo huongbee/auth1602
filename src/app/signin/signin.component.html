@@ -13,6 +13,10 @@
             <input type="password" formControlName="password" class="form-control" id="password" placeholder="Password">
           </div>
           <button type="submit" class="btn btn-primary" [disabled]="signInForm.invalid">Login</button>
+          {{loading | json}}
+          <div *ngIf="loading">
+            <div>Loading...</div>
+          </div>
         </form>
     </div>
   </div>

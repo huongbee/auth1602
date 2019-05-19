@@ -19,7 +19,7 @@ export class UserService {
     async login(email: string, password: string) {
       return this.http.post(`${this.URL}user/signin`, {email, password})
       .toPromise()
-      .then(res => {
+      .then((res: any) => {
         localStorage.setItem('token', res.data.token);
         return res;
       })
@@ -27,7 +27,6 @@ export class UserService {
     }
     async check() {
       const token = localStorage.getItem('token');
-      console.log(token);
       if (!token) {
         return this.router.navigateByUrl('/signin');
       }
