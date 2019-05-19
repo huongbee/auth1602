@@ -12,7 +12,23 @@ export class AppComponent {
   title = 'auth1802';
   loading: boolean;
   constructor(private userService: UserService, private store: Store<Loading>) {
-    this.store.select('loading').subscribe(l => this.loading = l;);
+    this.store.select('loading').subscribe(l => {
+      console.log(l);
+      this.loading = l;
+    });
+    this.userService.check()
+    .then(res => {
+      if (res.code === 1) {
+        this.store.dispatch({
+          type: 'USER_LOGIN',
+          user: res.data.user
+        });
+        this.store.dispatch({type: 'LOADED'});
+      }
+    })
+    .catch(err => {
+      console.log(err);
+    });
   }
 
 }
