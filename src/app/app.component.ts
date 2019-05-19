@@ -18,6 +18,7 @@ export class AppComponent {
     });
     this.userService.check()
     .then(res => {
+      console.log(res);
       if (res.code === 1) {
         this.store.dispatch({
           type: 'USER_LOGIN',

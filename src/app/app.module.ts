@@ -17,9 +17,9 @@ import { PostComponent } from './post/post.component';
 import { MustBeGuestGuard } from './guard/must-be-guest.guard';
 
 const routes: Route[] = [
-    { path: '', component: ProfileComponent },
     { path: 'signin', component: SigninComponent, canActivate: [MustBeGuestGuard]},
-    { path: 'signup', component: SignupComponent},
+    { path: 'signup', component: SignupComponent, canActivate: [MustBeGuestGuard]},
+    { path: '', component: ProfileComponent },
     { path: 'post', component: PostComponent},
     { path: '**', component: NotFoundComponent}
 ];
