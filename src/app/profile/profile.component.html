@@ -1,6 +1,11 @@
 <p>
   profile works!
 </p>
-<pre>
-  {{user | json }}
-</pre>
+<p>{{user.name}}</p>
+<p>{{user.email}}</p>
+<img src="{{user.avatar}}" width="150px">
+<form [formGroup]="userForm" (ngSubmit)="changeAvatar()">
+  <input type="file" formControlName="images" (change)="selectFile($event)">
+  <button>Upload</button>
+</form>
+<p class="btn btn-link" (click)="logOut()">Logout</p>

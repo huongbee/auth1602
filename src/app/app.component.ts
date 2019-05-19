@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { UserService } from './service/user.service';
 import { Store } from '@ngrx/store';
 import { Loading } from './type';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-root',
@@ -11,14 +12,10 @@ import { Loading } from './type';
 export class AppComponent {
   title = 'auth1802';
   loading: boolean;
-  constructor(private userService: UserService, private store: Store<Loading>) {
-    this.store.select('loading').subscribe(l => {
-      console.log(l);
-      this.loading = l;
-    });
+  constructor(private userService: UserService, private store: Store<Loading>, private router: Router) {
+    this.store.select('loading').subscribe(l => this.loading = l);
     this.userService.check()
-    .then(res => {
-      console.log(res);
+    .then((res: any) => {
       if (res.code === 1) {
         this.store.dispatch({
           type: 'USER_LOGIN',
@@ -27,7 +24,10 @@ export class AppComponent {
       }
     })
     .catch(err => {
-      console.log(err);
+      if (this.router.url === '/signup') {
+        return this.router.navigateByUrl('signup');
+      }
+      return this.router.navigateByUrl('signin');
     });
   }
 

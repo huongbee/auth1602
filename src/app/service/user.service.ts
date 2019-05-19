@@ -31,22 +31,46 @@ export class UserService {
       const token = localStorage.getItem('token');
       if (!token) {
         this.store.dispatch({type: 'LOADED'});
+        return Promise.reject('Token not provider!');
+      } else {
+        const headers = new HttpHeaders({ token });
+        return this.http.post(
+          `${this.URL}user/check`, // uri
+          null, // body
+          { headers, observe: 'response' } // headers
+        )
+        .toPromise()
+        .then((res: any) => {
+          if (res.body.code === 1) {
+            this.store.dispatch({type: 'LOADED'});
+            return res.body;
+          } else {
+            return this.router.navigateByUrl('/signin');
+          }
+        })
+        .catch(err => err);
+      }
+    }
+    logOut() {
+      localStorage.removeItem('token');
+      return this.router.navigateByUrl('signin');
+    }
+    async changeAvatar(formData: FormData): Promise<any> {
+      const token = localStorage.getItem('token');
+      if (!token) {
+        this.store.dispatch({type: 'LOADED'});
         return this.router.navigateByUrl('/signin');
       }
       const headers = new HttpHeaders({ token });
-      return this.http.post(
-        `${this.URL}user/check`, // uri
-        null, // body
-        { headers, observe: 'response' } // headers
+      this.http.post(
+        `${this.URL}user/update-avatar`,
+        formData,
+        { headers}
       )
       .toPromise()
       .then((res: any) => {
-        if (res.body.code === 1) {
-          this.store.dispatch({type: 'LOADED'});
-          return res.body;
-        } else {
-          return this.router.navigateByUrl('/signin');
-        }
+        this.store.dispatch({type: 'USER_INFO', user: res.data});
+        return res;
       })
       .catch(err => err);
     }

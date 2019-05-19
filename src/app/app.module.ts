@@ -15,12 +15,15 @@ import { userReducer, loading } from './ngrx/reducers';
 import { StoreModule } from '@ngrx/store';
 import { PostComponent } from './post/post.component';
 import { MustBeGuestGuard } from './guard/must-be-guest.guard';
+import { MustBeUserGuard } from './guard/must-be-user.guard';
+import { SignupGuard } from './guard/signup.guard';
+
 
 const routes: Route[] = [
     { path: 'signin', component: SigninComponent, canActivate: [MustBeGuestGuard]},
-    { path: 'signup', component: SignupComponent, canActivate: [MustBeGuestGuard]},
-    { path: '', component: ProfileComponent },
-    { path: 'post', component: PostComponent},
+    { path: 'signup', component: SignupComponent, canActivate: [SignupGuard]},
+    { path: '', component: ProfileComponent, canActivate: [MustBeUserGuard] },
+    { path: 'post', component: PostComponent,  canActivate: [MustBeUserGuard] },
     { path: '**', component: NotFoundComponent}
 ];
 
@@ -45,7 +48,7 @@ const routes: Route[] = [
       loading
     })
   ],
-  providers: [UserService, MustBeGuestGuard],
+  providers: [UserService, MustBeGuestGuard, MustBeUserGuard, SignupGuard],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
